@@ -1,0 +1,20 @@
+* 개발 환경
+  - Java 1.8.0_131
+  - Ubuntu 16.04
+
+* 빌드 환경
+  - Apache Maven 3.3.9
+
+* 빌드 방법
+  - 어셈블리
+    $ mvn assembly:assembly
+  - 패키지
+    $ mvn package
+  - 컴파일
+    $ mvn compile
+  - 초기화
+    $ mvn clean
+
+* 실행 방법
+  - RocksDB 기본 테스트
+    $ java -cp target/rocks-1.0-jar-with-dependencies.jar kr.re.etri.kmtk.io.Rocks
