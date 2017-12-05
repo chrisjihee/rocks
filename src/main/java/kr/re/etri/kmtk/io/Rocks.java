@@ -9,7 +9,7 @@ import java.io.IOException;
 public class Rocks {
     private String path;
     private boolean readOnly;
-    private RocksDB db;
+    public RocksDB db;
 
     class Quiet extends Logger {
         Quiet() {
@@ -49,6 +49,12 @@ public class Rocks {
         return asStr(get(k));
     }
 
+    public RocksIterator iterator() {
+        RocksIterator i = db.newIterator();
+        i.seekToFirst();
+        return i;
+    }
+
     public void put(Object k, Object v) throws RocksDBException, IOException {
         db.put(bytes(k), bytes(v));
     }
@@ -72,6 +78,12 @@ public class Rocks {
         data.delete("apple");
         System.out.println("DB.delete(apple)");
         System.out.println("DB.contains(apple) = " + data.contains("apple"));
+
+        RocksIterator i = data.iterator();
+        while(i.isValid()) {
+            System.out.printf("%s => %s\n", new String((i.key())), new String((i.value())));
+            i.next();
+        }
         data.close();
     }
 }
